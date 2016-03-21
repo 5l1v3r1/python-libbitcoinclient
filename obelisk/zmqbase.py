@@ -90,7 +90,8 @@ class ClientBase(object):
             del self._subscriptions[tx_id]
 
     def _reconnect(self):
-        self.log.error("Libbitcoin server timed out. Refreshing socket and resending requests.")
+        if self.log:
+            self.log.error("Libbitcoin server timed out. Refreshing socket and resending requests.")
         self._socket.close()
         self._socket = self.setup(self.address, self.public_key)
         for tx_id in self._timeouts.keys():
