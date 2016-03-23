@@ -121,7 +121,7 @@ class LibbitcoinClient(ClientBase):
         t = reactor.callLater(10, timeout)
 
         s = ZmqSocket(frame_received, 3, type=zmq.SUB)
-        s.connect(self.address[:len(self.address) - 4] + str(port), self.public_key)
+        s.connect(self.address[:len(self.address) - 4] + str(port), None)
 
     def renew_subscriptions(self):
         for address in self._subscriptions["address"]:
