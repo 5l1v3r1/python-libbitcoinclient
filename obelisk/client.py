@@ -89,10 +89,12 @@ class LibbitcoinClient(ClientBase):
     def cycleAddressIfNeeded(self):
         if self.addresses is not None:
             try:
-                index = self.addresses.index(self.address)
+                index = self.addresses.index((self.address, self.public_key))
                 index = (index + 1) % len(self.addresses)
                 self.address = self.addresses[index][0]
                 self.public_key = self.addresses[index][1]
+                if self.log:
+                    self.log.info("Switching to %s" % self.address)
             except ValueError:
                 pass
 
@@ -114,7 +116,7 @@ class LibbitcoinClient(ClientBase):
             if not self.connected:
                 self.connected = True
                 if self.log:
-                    self.log.info("Libbitcoin server online")
+                    self.log.info("Libbitcoin server online at %s" % self.address)
 
         t = reactor.callLater(10, timeout)
 
