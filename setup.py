@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='python-libbitcoinclient',
-    version="0.4.2",
+    version="0.4.3",
     install_requires=['twisted', 'ecdsa', 'pyzmq'],
     packages=['obelisk'],
     maintainer='Chris Pacia',

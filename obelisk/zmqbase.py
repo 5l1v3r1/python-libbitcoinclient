@@ -99,8 +99,10 @@ class ClientBase(object):
             if v[0].active():
                 v[0].cancel()
             self.send_command(v[1], data=v[2], cb=v[3])
-            del self._timeouts[tx_id]
-            del self._subscriptions[tx_id]
+            if tx_id in self._timeouts:
+                del self._timeouts[tx_id]
+            if tx_id in self._subscriptions:
+                del self._subscriptions[tx_id]
         for address in self._subscriptions["address"].keys():
             callbacks = self._subscriptions["address"][address]["callbacks"]
             for callback in callbacks:
